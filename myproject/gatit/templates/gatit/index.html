@@ -1,0 +1,20 @@
+{% extends "gatit/base.html" %}
+{% load static %}
+{% block content %}
+<h1>Welcome to GATIT, Sarakiilor!</h1>
+<p>Thanks for visiting my blog! Check all this cool stuff!</p>
+
+{% for recipe in all_recipes %}
+<tr>
+<td><strong>{{ recipe.name }}</strong></td><br>
+<td> Ingrediente:
+  {% for ingred in recipe.ingredients.all %}
+   {{ ingred.ingredient }}
+  {% endfor %},
+</td><br>
+<td><a href="{{ recipe.link_adress }}">Reteta aici</a></td><br><br>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}
