@@ -1,0 +1,17 @@
+{% extends "gatit/base.html" %}
+{% load static %}
+{% block content %}
+<h1>Search Results</h1>
+
+<ul>
+      {% for recipe in object_list %}
+    <li><strong>{{ recipe.name }}</strong>:<br>
+        {% for ingred in recipe.ingredients.all %}
+          {{ ingred.ingredient }}
+        {% endfor %}
+
+    </li>
+     {% endfor %}
+
+   </ul>
+{% endblock %}
