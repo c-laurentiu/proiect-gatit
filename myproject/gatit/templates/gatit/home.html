@@ -1,0 +1,15 @@
+{% extends "gatit/base.html" %}
+{% load static %}
+{% block content %}
+<h1>Welcome to GATIT, Sarakiilor!</h1>
+<h1>This is the home page!</h1>
+<p>Thanks for visiting my blog! Check all this cool stuff!</p>
+
+
+<div class="search-bar mt-sm-2 mr-2">
+  <form action="{% url 'search_results' %}" method="get">
+    <input name="q" type="text" placeholder="Search...">
+  </form>
+</div>
+
+{% endblock %}
