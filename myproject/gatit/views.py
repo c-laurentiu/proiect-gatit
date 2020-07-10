@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView, ListView
 from .models import Ingredient, Recipe
+from gatit.forms import EntryCreationForm
 from django.db.models import Q
 from functools import reduce
 from operator import and_, or_
@@ -8,41 +9,38 @@ from operator import and_, or_
 # class IndexView(TemplateView):
 #     template_name = 'index.html'
 
-class HomePageView(TemplateView):
+class HomePageView(ListView):
     template_name = 'home.html'
+    model = Ingredient
+    # if 'search' in request.GET
+
 
 class SearchResultsView(ListView):
     model = Recipe
     template_name = 'search_results.html'
 
-    def get_queryset(self):
-        args = Q()
-        input_query = self.request.GET.get('q')
-        query_list = input_query.split(' ')
-        print(query_list)
-        queries = [Q(ingredients__ingredient__icontains = value) for value in query_list]
-        query = reduce(and_, (Q(ingredients__ingredient__icontains = value) for value in query_list))
-        # for item in queries:
-        #     query &= item
+    def get_queryset(self): # new
+        query = self.request.GET.getlist('q')
+        if query != None:
+            object_list = Recipe.objects.all()
+            for item in query:
+            # if len(query) > 1:
+                object_list = object_list.filter(
+                        Q(ingredients__ingredient_name__icontains = item)
+                        ).distinct()
+                # criteria = reduce(and_, (Q(ingredients__ingredient_name__icontains = item) for item in query))
+                # object_list = Recipe.objects.filter(criteria).distinct()
+                # print(criteria)
+            # else:
+            #     object_list = Recipe.objects.filter(
+            #         Q(ingredients__ingredient_name__icontains = query)
+            #         ).distinct()
+            for i in object_list: #algoritm ca la codul vechi
+                break
+
+
+
         print(query)
-        object_list = Recipe.objects.filter(query).distinct()
-
-        test = Recipe.objects.get(pk=1).ingredients.all()
-        print(test)
-
-
-
-
-        # for each_arg in query_list:
-        #     if args != Q():
-        #         args = Q(ingredients__ingredient__icontains=each_arg)
-        #     else:
-        #         args = Q(ingredients__ingredient__icontains=each_arg)
-        #     print(each_arg)
-        #     print(args)
-        #
-        # object_list = Recipe.objects.filter(*(args,)).distinct()
-        print(type(query))
-        # print(test_query)
         print(object_list)
+
         return object_list

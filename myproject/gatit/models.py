@@ -2,10 +2,10 @@ from django.db import models
 
 # Create your models here.
 class Ingredient(models.Model):
-    ingredient = models.CharField(max_length=128)
+    ingredient_name = models.CharField(max_length=128)
 
     def __str__(self):
-        return self.ingredient
+        return self.ingredient_name
 
 class Recipe(models.Model):
     name = models.CharField(max_length=128)

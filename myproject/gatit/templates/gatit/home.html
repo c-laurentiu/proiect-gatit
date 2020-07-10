@@ -4,12 +4,21 @@
 <h1>Welcome to GATIT, Sarakiilor!</h1>
 <h1>This is the home page!</h1>
 <p>Thanks for visiting my blog! Check all this cool stuff!</p>
-
-
-<div class="search-bar mt-sm-2 mr-2">
+<div class="container">
   <form action="{% url 'search_results' %}" method="get">
-    <input name="q" type="text" placeholder="Search...">
-  </form>
+    <select class="js-example-basic-multiple" name="q" multiple="multiple" data-placeholder='search'>
+    {% for ingredient in object_list %}
+      <option value="{{ ingredient.ingredient_name }}">{{ ingredient.ingredient_name }}</option>
+    {% endfor %}
+  </select><br><br>
+  <input type="submit" value="Cauta retete">
+    </form>
 </div>
 
+<script>
+$(function(){
+    $('.js-example-basic-multiple').select2();
+});
+
+</script>
 {% endblock %}

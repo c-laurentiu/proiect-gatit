@@ -1,8 +1,4 @@
-h1 {
-  text-align: center;
-}
-
-.search-bar {
+.js-example-basic-multiple {
   max-width: 500px;
-  width: 100%;
+  width: 500px;
 }
